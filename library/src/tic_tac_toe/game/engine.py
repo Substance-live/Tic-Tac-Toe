@@ -22,7 +22,7 @@ class TicTacToe:
         validate_players(self.player1, self.player2)
 
     def play(self, start_mark: Mark = Mark('X')) -> None:
-        game_state = GameState(Grid(), start_mark)
+        game_state = GameState(Grid(" X       "), start_mark)
         while True:
             self.renderer.render(game_state)
             if game_state.game_over:

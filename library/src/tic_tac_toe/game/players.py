@@ -5,6 +5,7 @@ import random
 import time
 
 from tic_tac_toe.logic.exceptions import InvalidMove
+from tic_tac_toe.logic.minimax import find_best_move
 from tic_tac_toe.logic.models import Move, Mark, GameState
 
 
@@ -46,3 +47,7 @@ class RandomComputerPlayer(ComputerPlayer):
             return random.choice(game_state.possible_moves)
         except IndexError:
             return None
+
+class MinimaxComputerPlayer(ComputerPlayer):
+    def get_computer_move(self, game_state: GameState) -> Move | None:
+        return find_best_move(game_state)
