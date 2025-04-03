@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from functools import cached_property
 
 from tic_tac_toe.logic.validators import validate_grid, validate_game_state
-from tic_tac_toe.logic.exceptions import InvalidMove
+from tic_tac_toe.logic.exceptions import InvalidMove, UnknownGameScore
 
 WINNING_PATTERNS = (
     "???......",
@@ -83,7 +83,7 @@ class GameState:
         return self.winner is None and self.grid.empty_count == 0
 
     @cached_property
-    def winner(self) -> LiteralString | None:
+    def winner(self) -> Mark | None:
         for pattern in WINNING_PATTERNS:
             for mark in Mark:
                 if re.match(pattern.replace("?", mark), self.grid.cells):
@@ -127,6 +127,16 @@ class GameState:
                 self.starting_mark,
             ),
         )
+
+    def evaluate_score(self, mark: Mark) -> int:
+        if self.game_over:
+            if self.tie:
+                return 0
+            elif self.winner is mark:
+                return 1
+            else:
+                return -1
+        raise UnknownGameScore("Game isn't over yet")
 
 
 if __name__ == '__main__':
