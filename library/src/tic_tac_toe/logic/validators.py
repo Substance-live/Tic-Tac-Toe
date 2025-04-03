@@ -6,8 +6,14 @@ import re
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from tic_tac_toe.logic.models import Grid, GameState, Mark
+    from tic_tac_toe.game.players import Player
 
 from tic_tac_toe.logic.exceptions import InvalidGameState
+
+
+def validate_players(player1: Player, player2: Player) -> None:
+    if player1.mark is player2.mark:
+        raise ValueError("Players must use diffrent marks")
 
 
 def validate_grid(grid: Grid) -> None:
