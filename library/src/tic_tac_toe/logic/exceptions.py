@@ -1,3 +1,5 @@
+# tic-tac-toe/logic/exceptions.py
+
 class InvalidMove(Exception):
     """Raised when the move is invalid."""
 
